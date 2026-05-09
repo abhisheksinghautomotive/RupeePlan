@@ -17,8 +17,10 @@ class Transaction(Base, TimestampMixin):
     description: Mapped[str] = mapped_column(Text, nullable=False)
     transaction_date: Mapped[date] = mapped_column(Date, nullable=False)
     
-    is_analyzed: Mapped[bool] = mapped_column(default=False)
+    # Idempotency and Audit
+    digest: Mapped[str] = mapped_column(String(64), unique=True, index=True, nullable=False)
     raw_data: Mapped[Optional[str]] = mapped_column(Text)  # Original CSV row/line for audit
+    is_analyzed: Mapped[bool] = mapped_column(default=False)
 
     account: Mapped["Account"] = relationship("Account", back_populates="transactions")
     category: Mapped[Optional["Category"]] = relationship("Category", back_populates="transactions")

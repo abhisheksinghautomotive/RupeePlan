@@ -22,6 +22,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project
 COPY . .
 
+# Create a non-root user and switch to it
+RUN useradd -m rupeeplan && chown -R rupeeplan:rupeeplan /app
+USER rupeeplan
+
 # Expose port
 EXPOSE 8000
 

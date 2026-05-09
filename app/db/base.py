@@ -13,3 +13,6 @@ class TimestampMixin:
         server_default=func.now(), 
         onupdate=func.now()
     )
+
+# Models should be imported explicitly where needed for Base.metadata to pick them up
+# (e.g., in Alembic env.py or in the application entry point)
